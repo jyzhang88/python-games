@@ -3,11 +3,21 @@
 def lets_play():
 	print("Welcome to the Tic-Tac-Toe!")
 
+	# Define the variables needed
+	keypad = {0: ["1", "2", "3"],
+	          1: ["4", "5", "6"],
+	          2: ["7", "8", "9"]}
+	q = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+	winnings = {0: q[0:3], 1: q[3:6], 2: q[6:9],
+	            3: q[0::3], 4: q[1::3], 5: q[2::3],
+	            6: q[0::4], 7: q[2:7:2]}
+
 	# Define all functions first
 
 	def choose_first():
 		import random
-		turn = random.sample(["Cross", "Circle"], 1)[0]
+		global turn
+		turn = random.sample(["X", "O"], 1)[0]
 		print("Player with {} goes first.".format(turn))
 
 	def print_board():
@@ -44,42 +54,28 @@ def lets_play():
 		while str(choice) not in lste:
 			choice = input("Please try again.")
 
-	keypad = {0: ["1", "2", "3"],
-	          1: ["4", "5", "6"],
-	          2: ["7", "8", "9"]}
-	q = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-	winnings = {0: q[0:3], 1: q[3:6], 2: q[6:9],
-	            3: q[0::3], 4: q[1::3], 5: q[2::3],
-	            6: q[0::4], 7: q[2:7:2]}
-
 	choose_first()
 
 	print_board()
 
 	for i in range(9):
-		if turn == "X":
-			choice = input("Mark the cross")
+		if turn == "X" and i in range(9):
+			choice = input("Mark the X")
+			check_repeat()
+		elif turn == "O" and i in range(g):
+			choice = input("Mark the O")
+			check_repeat()
+		else:
+			print("This game is a tie!")
+			break
 
-		check_repeat()
-
-		# select between "X" and "O"
-		if (i + 1) % 2 == 0 and i in range(9):
-			choice = input("Mark the cross")
-			output = "X"
-		elif i in range(9):
-			choice = input("Mark the circle")
-			output = "O"
-
-
-		# based on input from above, replace number with output
+		# based on choice from above, replace number with choice
 		for row in keypad:
 			if choice in keypad[row]:
 				new = [num.replace(choice, turn) for num in keypad[row]]
 				break
 		keypad[row] = new
 
-
-		# prints the board out
 		print_board()
 
 		check_win()
