@@ -7,6 +7,7 @@ A personal repository where I upload Python codes for some games. It's just for 
 
 Import `tictactoe.py` and run `lets_play()` function to initiate the game.
 The flowthrough of the game:
+
 1. Determine who starts first, **X** or **O**
 2. Print the board
 3. Player enters a digit to mark the choice
